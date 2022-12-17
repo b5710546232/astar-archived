@@ -10,8 +10,13 @@ type Vector struct {
 func (v Vector) ManhattanDistance(other Vector) int {
 	return abs(v.X-other.X) + abs(v.Y-other.Y)
 }
+
 func (v Vector) Add(other Vector) Vector {
 	return Vector{v.X + other.X, v.Y + other.Y}
+}
+
+func (v Vector) Equal(other Vector) bool {
+	return v.X == other.X && v.Y == other.Y
 }
 
 func abs(x int) int {
@@ -101,7 +106,7 @@ func (a *AStar) Search() []Vector {
 		current := a.lowestFScore()
 
 		// If we have reached the end, reconstruct the path and return it
-		if current.Pos.X == a.End.Pos.X && current.Pos.Y == a.End.Pos.Y {
+		if current.Pos.Equal(a.End.Pos) {
 			return a.reconstructPath(current)
 		}
 
